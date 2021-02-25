@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import model.dao.DaoFactory;
+import model.dao.DepartmentDao;
 import model.dao.SellerDao;
+import model.dao.impl.DepartmentDaoJDBC;
 import model.entities.Department;
 import model.entities.Seller;
 
@@ -12,6 +14,52 @@ public class Program {
 
 	public static void main(String[] args) {
 		
+		//testeSeller();
+		
+		testeDepartment();
+		
+	}
+	
+	
+	public static void testeDepartment() {
+		Scanner sc = new Scanner(System.in);
+		
+		DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
+		
+		/*
+		System.out.println("=== TESTE 1 INSERT ===");
+		
+		Department newDepartment = new Department(null,"Dev");
+		departmentDao.insert(newDepartment);
+		System.out.println("Id Novo Departamento Inserido: "+newDepartment.getId());
+		*/
+		
+		System.out.println("=== TESTE 2 Busca Departamento Pelo Id ===");
+		
+		Department dep = departmentDao.findById(6);
+		System.out.println("Resultado Busca Departamento Por Id - DEPARTMENTO: "+dep.getId()+" - "+dep.getName() );
+		
+		
+		System.out.println("=== TESTE 3 Update Departamento ===");
+		dep.setName("Compras");
+		departmentDao.update(dep);
+		
+		/*
+		System.out.println("=== TESTE 4 Delete por Id ===");
+		dep.setName("Compras");
+		departmentDao.deleteById(7);
+		*/
+		
+		System.out.println("=== TESTE 4 Retornar Todos ===");
+		List<Department> list = departmentDao.findAll();
+		
+		for (Department obj : list) {
+			System.out.println(obj);
+		}
+				
+	}
+	
+	public static void testeSeller() {
 		Scanner sc = new Scanner(System.in);
 
 		SellerDao sellerDao = DaoFactory.createSellerDao();
